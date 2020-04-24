@@ -1,0 +1,53 @@
+<template>
+    <header style="margin-top: -25px; margin-left: -10px;">
+        <img src="resources/lwc.png" alt="App logo" />
+        <h2>Account Fetcher</h2>
+        <template if:true={isLoggedIn}>
+            <button onclick={logOut} style="width:auto;right: 37px;top: 43px;position: absolute;">Logout</button>
+        </template>
+
+        <!-- Snackbar -->
+        <div class="snackbar"></div>
+        <template if:true={showLoader}>git commit -m "first commit"
+            <div class="loader"></div>
+        </template>
+    </header>
+    <main class="content">
+
+        <template if:false={isLoggedIn}>
+            <!-- Modal Start -->
+            <template if:true={isModalOpen}>
+                <div id="myModal" class="modal">
+                    <div class="modal-content animate">
+                        <span onclick={closeModal} class="closeButton">X</span>
+                        <div class="container">
+                            <label for="uname"><b>Username</b></label>
+                            <input value={credentials.userName} onchange={handleUsernameChange} type="text" placeholder="Enter Username" name="uname" >
+
+                            <label for="psw"><b>Password</b></label>
+                            <input value={credentials.password} onchange={handlePasswordChange} type="password" placeholder="Enter Password" name="psw" >
+
+                            <label for="secToken"><b>Securoty Token</b></label>
+                            <input value={credentials.securityToken} onchange={handleTokenChange} type="text" placeholder="Enter Securoty Token" name="secToken" >
+                            <div style="text-align: center;">
+                                <button onclick={loginUser}  style="width: auto;background: #0288d1;">Login</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <!-- Modal End -->
+            <h1>
+                You need to <span style="cursor:pointer;" onclick={openModal}>Log-in</span> to proceed
+            </h1>
+        </template>
+
+        <template if:true={isLoggedIn}>
+            <button style="width:auto;" onclick={fetchRecords}>Fetch Account Records</button>
+            <template if:true={isDataAvailableToShow}>
+                {accountRecords}
+            </template>
+        </template>
+
+    </main>
+</template>
